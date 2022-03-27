@@ -20,7 +20,7 @@ export default {
   height:100%
 }
 .body {
-  background-color: #A4A4A4;
+  /* background-color: #F2F2F2; */
   color: black;
   padding: 25px 25px 25px 25px;
   display: flex;
