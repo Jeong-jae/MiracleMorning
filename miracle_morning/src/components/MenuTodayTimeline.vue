@@ -1,99 +1,68 @@
 <template>
   <div>
-    <Button label="Primary" class="p-button-outlined" />
-    <div>{{ selectMonth }}월 {{ selectDay }}일 인증</div>
-    <!-- <el-timeline>
-      <el-timeline-item
-        v-for="(activity, index) in activities"
-        :key="index"
-        :type="activity.type"
-        :color="activity.color"
-        :size="activity.size"
-        :hollow="activity.hollow"
-        :timestamp="activity.timestamp"
-      >
-        {{ activity.name }}
-      </el-timeline-item>
-    </el-timeline> -->
+    <Calendar v-model="calendarValue" dateFormat="yy-mm-dd" />
+    <Button label="검색" class="p-button-outlined" @click="SearchData" />
+    <div>
+      <Timeline :value="timelineData">
+        <template #content="slotProps">
+          <small class="p-text-secondary">{{ slotProps.item.timestamp }}</small>
+          {{ slotProps.item.name }}
+        </template>
+      </Timeline>
+    </div>
   </div>
 </template>
 
 <script>
 import { ref } from "vue";
-import data from "../data/year.json";
+import year from "../data/year.json";
+
 export default {
   setup() {
-    let activities = ref([
-      {
-        name: "Custom icon",
-        timestamp: "2018-04-12 20:46",
-        type: "primary",
-        hollow: true,
-      },
-      {
-        name: "Custom color",
-        timestamp: "2018-04-03 20:46",
-        type: "primary",
-        hollow: true,
-      },
-      {
-        name: "Custom size",
-        timestamp: "2018-04-03 20:46",
-        type: "primary",
-        hollow: true,
-      },
-      {
-        name: "Custom hollow",
-        timestamp: "2018-04-03 20:46",
-        type: "primary",
-        hollow: true,
-      },
-      {
-        name: "Default node",
-        timestamp: "2018-04-03 20:46",
-        type: "primary",
-        hollow: true,
-      },
-    ]);
-    activities = ref([]);
-    let selectMonth = ref("");
-    let selectDay = ref("");
+    let timelineData = ref([]);
+    let selectYear = ref("");
+    let month = ref("");
+    let day = ref("");
+    let calendarValue = ref(new Date());
 
-    for (var month in data) {
-      // console.log(month + "월");
-      for (var day in data[month]) {
-        // console.log(day + "일");
-        // console.log(data[month][day]);
-        // console.log(data[month][day].data);
-        if (data[month][day].data) {
-          for (var i = 0; i < data[month][day].data.length; i++) {
-            if (!data[month][day].data.length) return;
-            selectMonth.value = month;
-            selectDay.value = day;
-            let hour = 0;
-            let min = 0;
-            // console.log(data[month][day].data[i]);
-            data[month][day].data[i].type = "primary";
-            data[month][day].data[i].hollow = true;
-            if (data[month][day].data[i].timestamp.length == 3) {
-              hour = data[month][day].data[i].timestamp.substring(0, 1);
-              min = data[month][day].data[i].timestamp.substring(1, 3);
-            } else if (data[month][day].data[i].timestamp.length == 4) {
-              hour = data[month][day].data[i].timestamp.substring(0, 2);
-              min = data[month][day].data[i].timestamp.substring(2, 4);
-            }
-            data[month][day].data[
-              i
-            ].timestamp = `2022년 ${month}월 ${day}일 ${hour}시 ${min}분`;
-            activities.value.push(data[month][day].data[i]);
-          }
-        }
+    const SearchData = () => {
+      timelineData.value = [];
+      selectYear.value = calendarValue.value.getFullYear();
+      month.value = calendarValue.value.getMonth() + 1;
+      day.value = calendarValue.value.getDate();
+      console.log(calendarValue.value.getFullYear() + "년");
+      console.log(calendarValue.value.getMonth() + 1 + "월");
+      console.log(calendarValue.value.getDate() + "일");
+
+      if (year[month.value][day.value]) {
+        console.log("값이 있다");
+      } else {
+        console.log("값이 없다");
       }
-    }
+      for (var i = 0; i < year[month.value][day.value].auth.length; i++) {
+        if (!year[month.value][day.value].auth.length) return;
+        let hour = 0;
+        let min = 0;
+        if (year[month.value][day.value].auth[i].timestamp.length == 3) {
+          hour = year[month.value][day.value].auth[i].timestamp.substring(0, 1);
+          min = year[month.value][day.value].auth[i].timestamp.substring(1, 3);
+        } else if (year[month.value][day.value].auth[i].timestamp.length == 4) {
+          hour = year[month.value][day.value].auth[i].timestamp.substring(0, 2);
+          min = year[month.value][day.value].auth[i].timestamp.substring(2, 4);
+        }
+        // year[month.value][day.value].auth[i].timestamp = `2022년 ${month.value}월 ${day.value}일 ${hour}시 ${min}분`;
+        year[month.value][day.value].auth[i].timestamp = `${hour}시 ${min}분`;
+        timelineData.value.push(year[month.value][day.value].auth[i]);
+      }
+    };
+
     return {
-      activities,
-      selectMonth,
-      selectDay,
+      timelineData,
+      selectYear,
+      month,
+      day,
+      calendarValue,
+      SearchData,
     };
   },
 };
