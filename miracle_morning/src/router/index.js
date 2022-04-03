@@ -1,8 +1,7 @@
 import { createWebHistory, createRouter } from "vue-router";
-import MenuMain from "@/components/MenuMain.vue"
+import MenuMain from "@/components/MenuMain.vue";
 import MenuTodayTimeline from "@/components/MenuTodayTimeline.vue";
 import MenuCertificationCount from "@/components/MenuCertificationCount.vue";
-
 
 const routes = [
   {

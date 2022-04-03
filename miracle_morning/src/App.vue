@@ -6,18 +6,18 @@
 </template>
 
 <script>
-import MenuBar from './components/MenuBar.vue'
+import MenuBar from "./components/MenuBar.vue";
 
 export default {
   components: {
-    MenuBar
-  }
-}
+    MenuBar,
+  },
+};
 </script>
 
 <style scoped>
-.container{
-  height:100%
+.container {
+  height: 100%;
 }
 .body {
   /* background-color: #F2F2F2; */
@@ -25,6 +25,6 @@ export default {
   padding: 25px 25px 25px 25px;
   display: flex;
   align-items: center;
-  height:100%
+  height: 100%;
 }
 </style>
