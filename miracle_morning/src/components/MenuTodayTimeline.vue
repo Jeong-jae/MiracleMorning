@@ -1,8 +1,10 @@
 <template>
-  <div>
-    <Calendar v-model="calendarValue" dateFormat="yy-mm-dd" />
-    <Button label="검색" class="p-button-outlined" @click="SearchData" />
-    <div>
+  <div class="container">
+    <div class="item">
+      <Calendar v-model="calendarValue" dateFormat="yy-mm-dd" />
+      <Button label="검색" class="p-button-outlined" @click="SearchData" />
+    </div>
+    <div class="item">
       <Timeline :value="timelineData">
         <template #content="slotProps">
           <small class="p-text-secondary">{{ slotProps.item.timestamp }}</small>
@@ -68,4 +70,14 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.container {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center;
+  align-items: center; */
+}
+.item {
+  align-content: space-around;
+}
+</style>
