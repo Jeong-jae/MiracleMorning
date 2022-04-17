@@ -6,8 +6,10 @@
     </div>
     <div class="item">
       <Timeline :value="timelineData">
-        <template #content="slotProps">
+        <template #opposite="slotProps">
           <small class="p-text-secondary">{{ slotProps.item.timestamp }}</small>
+        </template>
+        <template #content="slotProps">
           {{ slotProps.item.name }}
         </template>
       </Timeline>

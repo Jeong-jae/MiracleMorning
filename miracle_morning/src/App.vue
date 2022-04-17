@@ -1,16 +1,27 @@
 <template>
   <div class="container">
-    <MenuBar></MenuBar>
+    <TabMenu :model="items" />
     <router-view class="body"></router-view>
   </div>
 </template>
 
 <script>
-import MenuBar from "./components/MenuBar.vue";
-
 export default {
-  components: {
-    MenuBar,
+  setup() {
+    let items = [
+      { label: "Home", icon: "pi pi-fw pi-home", to: "/" },
+      {
+        label: "MenuTodayTimeline",
+        icon: "pi pi-fw pi-pencil",
+        to: "/MenuTodayTimeline",
+      },
+      {
+        label: "MenuCertificationCount",
+        icon: "pi pi-fw pi-calendar",
+        to: "/MenuCertificationCount",
+      },
+    ];
+    return { items };
   },
 };
 </script>
